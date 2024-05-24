@@ -53,5 +53,35 @@
   <button onclick="window.location.href='virginia.html'">Virginia Del Valle Bazan</button>
   <button onclick="window.location.href='julieta.html'">Julieta Rodriguez</button>
 </div>
+
+<script>
+  window.onload = function() {
+    if (!navigator.onLine || navigator.connection.type === "none") {
+      showError("No hay conexión a internet.");
+    }
+    window.addEventListener('offline', function() {
+      showError("No hay conexión a internet.");
+    });
+    window.addEventListener('online', function() {
+      hideError();
+    });
+  }
+
+  function showError(message) {
+    var errorMessage = document.createElement('div');
+    errorMessage.textContent = message;
+    errorMessage.style.color = 'red';
+    errorMessage.style.fontWeight = 'bold';
+    document.body.insertBefore(errorMessage, document.body.firstChild);
+  }
+
+  function hideError() {
+    var errorMessage = document.querySelector('div#error-message');
+    if (errorMessage) {
+      errorMessage.parentNode.removeChild(errorMessage);
+    }
+  }
+</script>
+
 </body>
 </html>
