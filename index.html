@@ -48,6 +48,7 @@
     background-color: #00DD00;
   }
   .consult-button {
+    display: block;
     position: absolute;
     top: 20px;
     right: 20px;
@@ -85,13 +86,20 @@
 </div>
 
 <div class="drawer" id="drawer">
-  <input type="text" placeholder="DNI" id="dniInput">
+  <input type="text" placeholder="DNI" id="dniInput" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 </div>
 
 <script>
   function toggleDrawer() {
     var drawer = document.getElementById('drawer');
-    drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
+    var consultButton = document.querySelector('.consult-button');
+    if (drawer.style.display === 'none') {
+      drawer.style.display = 'block';
+      consultButton.style.display = 'none';
+    } else {
+      drawer.style.display = 'none';
+      consultButton.style.display = 'block';
+    }
   }
 
   window.onload = function() {
