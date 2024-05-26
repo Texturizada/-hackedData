@@ -86,6 +86,29 @@
     -moz-appearance: none;
     appearance: none;
   }
+  .result-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+  }
+  .result-item {
+    background-color: rgba(0, 255, 0, 0.3);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .result-item button {
+    background-color: #00FF00;
+    color: black;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .result-item button:hover {
+    background-color: #00DD00;
+  }
 </style>
 </head>
 <body>
@@ -99,10 +122,12 @@
 <div class="drawer" id="drawer">
   <input type="text" placeholder="DNI" id="dniInput" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
   <select id="genderSelect" class="hacker-select">
-    <option value="Femenino">Femenino</option>
-    <option value="Masculino">Masculino</option>
+    <option value="F">Femenino</option>
+    <option value="M">Masculino</option>
   </select>
 </div>
+
+<ul class="result-list" id="resultList"></ul>
 
 <script>
   function toggleDrawer() {
@@ -153,6 +178,50 @@
     var errorMessage = document.querySelector('div#error-message');
     if (errorMessage) {
       errorMessage.parentNode.removeChild(errorMessage);
+    }
+  }
+
+  // Función para buscar en la API al hacer clic en el botón de consulta
+  function searchAPI() {
+    var dni = document.getElementById('dniInput').value;
+    var gender = document.getElementById('genderSelect').value;
+    var url = "https://apitexturizada.onrender.com/" + dni + "/" + gender;
+    
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        displayResults(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  // Función para mostrar los resultados obtenidos de la API
+  function displayResults(data) {
+    var resultList = document.getElementById('resultList');
+    resultList.innerHTML = '';
+
+    if (data.length > 0) {
+      data.forEach(person => {
+        var listItem = document.createElement('li');
+        listItem.classList.add('result-item');
+        listItem.textContent = person.nombre + " " + person.apellido;
+        
+        var button = document.createElement('button');
+        button.textContent = "Ver más";
+        button.addEventListener('click', function() {
+          // Aquí podrías agregar funcionalidad adicional para ver más detalles del usuario
+          alert("Nombre completo: " + person.nombre + " " + person.apellido);
+        });
+        
+        listItem.appendChild(button);
+        resultList.appendChild(listItem);
+      });
+    } else {
+      var listItem = document.createElement('li');
+      listItem.textContent = "No se encontraron resultados";
+      resultList.appendChild(listItem);
     }
   }
 </script>
