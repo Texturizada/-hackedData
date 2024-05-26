@@ -75,6 +75,17 @@
     color: white;
     font-size: 16px;
   }
+  .hacker-select {
+    background-color: transparent;
+    color: lime;
+    border: none;
+    border-bottom: 2px solid #00FF00;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 </style>
 </head>
 <body>
@@ -87,7 +98,7 @@
 
 <div class="drawer" id="drawer">
   <input type="text" placeholder="DNI" id="dniInput" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-  <select id="genderSelect">
+  <select id="genderSelect" class="hacker-select">
     <option value="Femenino">Femenino</option>
     <option value="Masculino">Masculino</option>
   </select>
