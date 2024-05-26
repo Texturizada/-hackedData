@@ -64,7 +64,8 @@
     padding: 20px;
     z-index: 1000;
   }
-  .drawer input {
+  .drawer input,
+  .drawer select {
     width: calc(100% - 40px);
     padding: 10px;
     margin-bottom: 20px;
@@ -86,6 +87,10 @@
 
 <div class="drawer" id="drawer">
   <input type="text" placeholder="DNI" id="dniInput" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+  <select id="genderSelect">
+    <option value="Femenino">Femenino</option>
+    <option value="Masculino">Masculino</option>
+  </select>
 </div>
 
 <script>
