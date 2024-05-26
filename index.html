@@ -47,6 +47,33 @@
   button:hover {
     background-color: #00DD00;
   }
+  .consult-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+  }
+  .drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    z-index: 1000;
+  }
+  .drawer input {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 2px solid #00FF00;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+  }
 </style>
 </head>
 <body>
@@ -54,10 +81,19 @@
   <h1>Hacking Data</h1>
   <button onclick="window.location.href='virginia.html'">Virginia Del Valle Bazan</button>
   <button onclick="window.location.href='julieta.html'">Julieta Rodriguez</button>
-  <button>Próximamente</button>
+  <button class="consult-button" onclick="toggleDrawer()">Consulta</button>
+</div>
+
+<div class="drawer" id="drawer">
+  <input type="text" placeholder="DNI" id="dniInput">
 </div>
 
 <script>
+  function toggleDrawer() {
+    var drawer = document.getElementById('drawer');
+    drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
+  }
+
   window.onload = function() {
     if (!navigator.onLine || navigator.connection.type === "none") {
       showError("No hay conexión a internet.");
