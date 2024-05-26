@@ -57,10 +57,9 @@
   .drawer {
     display: none;
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px;
-    height: 100%;
+    top: 20px;
+    right: 20px;
+    width: 200px;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 20px;
     z-index: 1000;
@@ -96,9 +95,21 @@
     if (drawer.style.display === 'none') {
       drawer.style.display = 'block';
       consultButton.style.display = 'none';
+      document.addEventListener('click', closeDrawerOnClickOutside);
     } else {
       drawer.style.display = 'none';
       consultButton.style.display = 'block';
+      document.removeEventListener('click', closeDrawerOnClickOutside);
+    }
+  }
+
+  function closeDrawerOnClickOutside(event) {
+    var drawer = document.getElementById('drawer');
+    var consultButton = document.querySelector('.consult-button');
+    if (!drawer.contains(event.target) && event.target !== consultButton) {
+      drawer.style.display = 'none';
+      consultButton.style.display = 'block';
+      document.removeEventListener('click', closeDrawerOnClickOutside);
     }
   }
 
